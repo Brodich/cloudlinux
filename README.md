@@ -1,11 +1,13 @@
 # cloudlinux
 
+Enable debug output. 
+`sudo echo "module_debug +p" > sudo /sys/kernel/debug/dynamic_debug/control`
 
-add module
-sudo insmod hello_kernelcare.ko
+Add module
+`sudo insmod hello_kernelcare.ko`
 
-show message module
-dmesg | tail -n 10
+Show message module
+`dmesg | tail -n 10`
 
-delete module
-sudo rmmod hello_kernelcare.ko
+Delete module
+`sudo rmmod hello_kernelcare.ko`

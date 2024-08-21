@@ -1,0 +1,91 @@
+From 81203f4e7bdff0ac5a4386ec147cfb0edce8d142 Mon Sep 17 00:00:00 2001
+From: qni <qni>
+Date: Wed, 21 Aug 2024 20:57:09 +0700
+Subject: [PATCH] Add Hello KernelCare module
+Signed-off-by: qni <zhuravlyavichus@mail.ru>
+---
+ samples/Kconfig                        |  6 ++++++
+ samples/Makefile                       |  2 ++
+ samples/hello_world/Makefile           | 12 ++++++++++++
+ samples/hello_world/hello_kernelcare.c | 19 +++++++++++++++++++
+ 4 files changed, 39 insertions(+)
+ create mode 100644 samples/hello_world/Makefile
+ create mode 100644 samples/hello_world/hello_kernelcare.c
+
+diff --git a/samples/Kconfig b/samples/Kconfig
+index b288d9991d27..b0d7f3b87863 100644
+--- a/samples/Kconfig
++++ b/samples/Kconfig
+@@ -291,6 +291,12 @@ config SAMPLE_CGROUP
+ 	help
+ 	  Build samples that demonstrate the usage of the cgroup API.
+ 
++config SAMPLE_HELLO_KERNELCARE
++	tristate "Hello KernelCare module"
++	depends on m
++	help
++	  This is module output "Hello, KernelCare!" to the kernel level.
++
+ source "samples/rust/Kconfig"
+ 
+ endif # SAMPLES
+diff --git a/samples/Makefile b/samples/Makefile
+index b85fa64390c5..cfa948ce7231 100644
+--- a/samples/Makefile
++++ b/samples/Makefile
+@@ -1,6 +1,8 @@
+ # SPDX-License-Identifier: GPL-2.0
+ # Makefile for Linux samples code
+ 
++obj-$(CONFIG_SAMPLE_HELLO_WORLD) += hello_world/
++
+ subdir-$(CONFIG_SAMPLE_AUXDISPLAY)	+= auxdisplay
+ subdir-$(CONFIG_SAMPLE_ANDROID_BINDERFS) += binderfs
+ subdir-$(CONFIG_SAMPLE_CGROUP) += cgroup
+diff --git a/samples/hello_world/Makefile b/samples/hello_world/Makefile
+new file mode 100644
+index 000000000000..e36574d8b8f5
+--- /dev/null
++++ b/samples/hello_world/Makefile
+@@ -0,0 +1,11 @@
++
++obj-$(CONFIG_SAMPLE_HELLO_WORLD) += hello_kernelcare.o
++
++obj-m += hello_kernelcare.o
++custom-module-objs = hello_kernelcare.o
++
++all:
++	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
++
++clean:
++	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+diff --git a/samples/hello_world/hello_kernelcare.c b/samples/hello_world/hello_kernelcare.c
+new file mode 100644
+index 000000000000..5bb044297cbb
+--- /dev/null
++++ b/samples/hello_world/hello_kernelcare.c
+@@ -0,0 +4,20 @@
++#include <linux/init.h>
++#include <linux/module.h>
++#include <linux/kernel.h>
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("GEORGE");
++MODULE_DESCRIPTION("A simple hello kernelcare module");
++
++static int __init hello_kernelcare_init(void)
++{
++    pr_debug("Hello, KernelCare!");
++    return 0;
++}
++
++static void __exit hello_kernelcare_exit(void)
++{
++    pr_debug("Goodbye, KernelCare!");
++}
++
++module_init(hello_kernelcare_init);
++module_exit(hello_kernelcare_exit);
+-- 
+2.34.1
+
