@@ -1,0 +1,30 @@
+From 196f4f421e8767ac1dbba7b8dfdd68ba6555e8f3 Mon Sep 17 00:00:00 2001
+From: qni <alexeeers@gmail.com>
+Date: Thu, 22 Aug 2024 15:35:09 +0700
+Subject: [PATCH] Add Hello KernelCare module
+
+This patch add Hello KernelCare module.
+
+Signed-off-by: qni <alexeeers@gmail.com>
+---
+ samples/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/samples/Kconfig b/samples/Kconfig
+index b0d7f3b87863..dcbe80c9ae0e 100644
+--- a/samples/Kconfig
++++ b/samples/Kconfig
+@@ -293,9 +293,9 @@ config SAMPLE_CGROUP
+ 
+ config SAMPLE_HELLO_KERNELCARE
+ 	tristate "Hello KernelCare module"
+-	depends on m 
++	depends on m
+ 	help
+-	  This is module output "Hello, KernelCare!" to the kernel level.
++	  This is module output "Hello, KernelCare!" to the kernel level. Nothing more.
+ 
+ source "samples/rust/Kconfig"
+ 
+-- 
+2.34.1
