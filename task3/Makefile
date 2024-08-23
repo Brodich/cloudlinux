@@ -1,8 +1,6 @@
-obj-m += jiffies_module.o
-obj-m += data_module.o
+obj-m += linked_list.o
 
-CFLAGS_jiffies_module.o := -DDEBUG
-CFLAGS_data_module.o := -DDEBUG
+CFLAGS_linked_list.o := -DDEBUG
 
 PWD := $(CURDIR)
 
